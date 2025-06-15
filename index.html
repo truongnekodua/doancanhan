@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gợi Ý Món Ăn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        #food-suggestion {
+            font-size: 1.5em;
+            color: #28a745;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bạn không biết ăn gì?</h1>
+        <p>Hãy để tôi gợi ý cho bạn một món ăn!</p>
+        <img id="food-image" src="https://via.placeholder.com/300" alt="Hình ảnh món ăn">
+        <div id="food-suggestion">Nhấn nút để nhận gợi ý...</div>
+        <button id="suggest-button">Gợi Ý Ngay!</button>
+    </div>
+
+    <script>
+        const foods = [
+            { name: "Phở Bò", image: "https://bing.com/th?id=OSK.85425acd749a3e207071b279db62247c" },
+            { name: "Bún Chả", image: "https://bing.com/th?id=OSK.e40b7487d99f05482dfdd349abff0b9f" },
+            { name: "Bánh Mì", image: "https://www.allrecipes.com/thmb/HTJHVC_LYKmXaMF54dhe2gZQkNI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/roasted-pork-banh-mi-vietnamese-sandwitch-ddmfs-3X4-0332-cfb4d2e149e7476ab2a2b4030c543f1b.jpg" },
+            { name: "Cơm Tấm Sườn Bì Chả", image: "https://bing.com/th?id=OSK.6a3d1ec916db4fd7bb4d2b6fb21111ed" },
+            { name: "Mì Ý Sốt Cà Chua", image: "https://tse4.mm.bing.net/th/id/OIP.KSad2b3XapdPKtuotatbDwHaEQ?rs=1&pid=ImgDetMain" },
+            { name: "Kim Chi Chiên Trứng", image: "https://cdn.tgdd.vn/Files/2020/07/14/1270558/cach-lam-banh-kim-chi-chien-han-quoc-thom-ngon-gion-rum-het-say-202007141324367740.jpg" },
+            { name: "Gà Nướng Mật Ong", image: "https://bing.com/th?id=OSK.f5b8396b984666ebfe72fef29a0c2094" },
+            { name: "Salad Rau Củ", image: "https://bing.com/th?id=OSK.bbd964746f8ffd1910db658e66aaa071" },
+            { name: "Canh Chua Cá", image: "https://bing.com/th?id=OSK.9e52a69a85db5d197f5c49aa61923da6" },
+            { name: "Bún Riêu Cua", image: "https://bing.com/th?id=OSK.e008e0f663a008dba7f189e5e07fd5e1" },
+            { name: "Gỏi Cuốn", image: "https://bing.com/th?id=OSK.e2a447f5d94a7095044720fb0ab2bc1b" },
+            { name: "Chè Ba Màu", image: "https://tse2.mm.bing.net/th/id/OIP.dK7lRhrb2OSD2wrh1T12qQHaE8?rs=1&pid=ImgDetMain" },
+            { name: "Trà Sữa Trân Châu", image: "https://th.bing.com/th/id/R.a9b0d95e7f256bcc021cc46f1291b0f1?rik=zQQHDlHg7HZ6Yg&riu=http%3a%2f%2fcdn.tgdd.vn%2fFiles%2f2022%2f01%2f21%2f1412109%2fhuong-dan-cach-lam-tra-sua-tran-chau-duong-den-202201211522033706.jpg&ehk=2hXOun6CHSnsSzwq3KFgpxJkNQtXw%2fMZMz3KKcDHCLM%3d&risl=&pid=ImgRaw&r=0" },
+             { name: "Pizza Hawaiian", image: "https://tse1.mm.bing.net/th/id/OIP.qdM2qL0OPe2UEEAyqgV4kQHaE8?rs=1&pid=ImgDetMain" },
+            { name: "Sushi Cuộn", image: "https://bing.com/th?id=OSK.cf070076f683ee84bcff93298ce385e4" },
+             { name: "Tacos", image: "https://bing.com/th?id=OSK.156cc3aef9444a3e8a2370e510d3a963" },
+            { name: "Bò Kho", image: "https://bing.com/th?id=OSK.20b7b7a3b300af67938de657ed4c9d39" },
+            { name: "Miến Gà", image: "https://bing.com/th?id=OSK.223c25aef640804a3b2481ef8978672c" },
+            { name: "Xôi Gà", image: "https://bing.com/th?id=OSK.0ef689e21129a3000d11b131e7c0ebe7" },
+            { name: "Bánh Canh", image: "https://bing.com/th?id=OSK.f4350ce6a1f124c4499e001a553c3b09" },
+            { name: "Lẩu Thái", image: "https://bing.com/th?id=OSK.c349e4a721bec9f59ca50bebc161518e" },
+            { name: "Nước Cam", image: "https://i.ytimg.com/vi/zGJZmJ1EH8U/maxresdefault.jpg" },
+            { name: "Sữa Chua", image: "https://tse2.mm.bing.net/th/id/OIP.BMywIkRdy_a2UJFOb2A2KwHaHa?rs=1&pid=ImgDetMain" },
+            { name: "Bánh Tráng Trộn", image: "https://bing.com/th?id=OSK.c95e1a2ef49607ffa914f3a5db7e1649" },
+            { name: "Bánh Gói", image: "https://cdn.tgdd.vn/2021/04/CookProduct/CachlambanhgoilachuoimienTrungthomngonbeongayhapdan-1200x676.jpg" },
+            { name: "Khoai Tây Chiên", image: "https://bing.com/th?id=OSK.c5ad505b0ffe7aa876135d2cfd87b73d" },
+            { name: "Bánh Khọt", image: "https://th.bing.com/th/id/R.b0beffa2160b1bf8935201710a7c8439?rik=5wojJ4CbH1Hgig&riu=http%3a%2f%2fstreetfoodman.com%2fupload%2fimages%2fbanh-khot-cha-ca1350x8001.jpg&ehk=2jKcNmsupj0ZEnOT8oAti0bjPSdsuABGHE2j4wwdn%2bI%3d&risl=&pid=ImgRaw&r=0" },
+            { name: "Bánh Bèo", image: "https://bing.com/th?id=OSK.6f4bfd95120cedf674584f63a7cf23f2" },
+            { name: "Bánh Xèo", image: "https://th.bing.com/th/id/OIP.695rGo29edWq1Z8SNS1lKQHaD4?rs=1&pid=ImgDetMain" }
+        ];
+
+        const suggestButton = document.getElementById('suggest-button');
+        const foodSuggestionDiv = document.getElementById('food-suggestion');
+        const foodImage = document.getElementById('food-image');
+
+        suggestButton.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * foods.length);
+            foodSuggestionDiv.textContent = foods[randomIndex].name;
+            foodImage.src = foods[randomIndex].image;
+            foodImage.alt = foods[randomIndex].name;
+        });
+    </script>
+</body>
+</html>
